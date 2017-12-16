@@ -37,6 +37,8 @@ jar {
 }
 
 shadowJar {
+    classifier = 'sources'
+    from sourceSets.main.allSource
     manifest {
         from rootProject.tasks.jar.manifest
     }

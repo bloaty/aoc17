@@ -1,4 +1,4 @@
-package org.bloaty.aoc17;
+package org.bloaty.aoc17.cli;
 
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -36,7 +36,7 @@ public enum CommandLineOptions {
                 .longOpt(PROBLEM_NUMBER_OPTION_NAME)
                 .desc("problem number: 1A, 1B, etc.")
                 .hasArg(true)
-                .required(true)
+                .required(false)
                 .numberOfArgs(1)
                 .build();
         

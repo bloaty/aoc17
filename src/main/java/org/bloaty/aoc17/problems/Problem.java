@@ -10,7 +10,7 @@ public abstract class Problem<T> {
         this.input = processInput(input);
     }
     
-    public abstract T solve();
+    public abstract int solve();
     
     /* package-private */
     abstract List<T> processInput(String input);

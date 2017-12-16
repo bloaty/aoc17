@@ -10,7 +10,7 @@ public final class Problem1A extends Problem1 {
     }
 
     @Override
-    public final Integer solve() {
+    public final int solve() {
         return IntegerUtils.sumOfMatchesAtOffset(this.input, 1);
     }
 

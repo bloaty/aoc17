@@ -1,8 +1,10 @@
 package org.bloaty.aoc17;
 
 import org.apache.commons.cli.ParseException;
+import org.bloaty.aoc17.cli.CommandLineManager;
 import org.bloaty.aoc17.problems.impl.Problem1A;
 import org.bloaty.aoc17.problems.impl.Problem1B;
+import org.bloaty.aoc17.problems.impl.Problem2A;
 
 public class Main {
     
@@ -28,6 +30,8 @@ public class Main {
             return (new Problem1A(input)).solve();
         case "1b":
             return (new Problem1B(input)).solve();
+        case "2a":
+            return (new Problem2A(input)).solve();
         default:
             return 0;
         }

@@ -1,4 +1,4 @@
-package org.bloaty.aoc17;
+package org.bloaty.aoc17.cli;
 
 import java.io.Console;
 import java.io.IOException;
@@ -52,6 +52,10 @@ public final class CommandLineManager {
     }
     
     public String getProblem() {
+        if (!problemSpecified()) {
+            printHelp();
+            System.exit(1);
+        }
         return commandLine.getOptionValue(CommandLineOptions.PROBLEM_NUMBER_OPTION_NAME);
     }
     
@@ -64,11 +68,10 @@ public final class CommandLineManager {
         if (noInputModeSpecified()) {
             return InputMode.INTERACTIVE;
         }
-        else if (commandLineInputModeSpecified()) {
+        if (commandLineInputModeSpecified()) {
             return InputMode.COMMAND_LINE;
-        } else {
-            return InputMode.FILE;
         }
+        return InputMode.FILE;
     }
     
     private void checkForConflictingInputsAndExitIfNeeded() {
@@ -79,25 +82,31 @@ public final class CommandLineManager {
         }
     }
     
+    private boolean problemSpecified() {
+        return commandLine.hasOption(CommandLineOptions.PROBLEM_NUMBER_OPTION_NAME);
+    }
+
     private boolean helpRequested() {
         return commandLine.hasOption(CommandLineOptions.HELP_OPTION_LONG_NAME) ||
                commandLine.hasOption(CommandLineOptions.HELP_OPTION_SHORT_NAME);
     }
-    
+
     private boolean noInputModeSpecified() {
-        return !commandLine.hasOption(CommandLineOptions.INPUT_FILE_OPTION_NAME) &&
-               !commandLine.hasOption(CommandLineOptions.RAW_INPUT_DATA_OPTION_NAME);
+        return !fileInputModeSpecified() && !commandLineInputModeSpecified();
     }
-    
+
     private boolean incompatibleInputModesSpecified() {
-        return commandLine.hasOption(CommandLineOptions.INPUT_FILE_OPTION_NAME) &&
-               commandLine.hasOption(CommandLineOptions.RAW_INPUT_DATA_OPTION_NAME);
+        return fileInputModeSpecified() && commandLineInputModeSpecified();
     }
-    
+
     private boolean commandLineInputModeSpecified() {
         return commandLine.hasOption(CommandLineOptions.RAW_INPUT_DATA_OPTION_NAME);
     }
     
+    private boolean fileInputModeSpecified() {
+        return commandLine.hasOption(CommandLineOptions.INPUT_FILE_OPTION_NAME);
+    }
+
     private String getInput(InputMode inputMode) {
         switch (inputMode) {
         case INTERACTIVE:
@@ -110,16 +119,16 @@ public final class CommandLineManager {
             return null;
         }
     }
-    
+
     private String getInputFromConsole() {
         Console console = System.console();
         return console.readLine("%s", "Input: ");
     }
-    
+
     private String getInputFromCommandLine() {
         return commandLine.getOptionValue(CommandLineOptions.INPUT_FILE_OPTION_NAME);
     }
-    
+
     private String getInputFromFile() {
         String fileName = commandLine.getOptionValue(CommandLineOptions.INPUT_FILE_OPTION_NAME);
         Path path = FileSystems.getDefault().getPath(fileName);

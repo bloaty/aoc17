@@ -6,7 +6,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-    Problem1ATests.class
+    Problem1ATests.class,
+    Problem1BTests.class,
+    Problem2ATests.class
 })
 public class ProblemTestSuite {
     /* intentionally blank */
