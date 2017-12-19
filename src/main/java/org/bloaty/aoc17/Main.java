@@ -5,6 +5,7 @@ import org.bloaty.aoc17.cli.CommandLineManager;
 import org.bloaty.aoc17.problems.impl.Problem1A;
 import org.bloaty.aoc17.problems.impl.Problem1B;
 import org.bloaty.aoc17.problems.impl.Problem2A;
+import org.bloaty.aoc17.problems.impl.Problem2B;
 
 public class Main {
     
@@ -32,6 +33,8 @@ public class Main {
             return (new Problem1B(input)).solve();
         case "2a":
             return (new Problem2A(input)).solve();
+        case "2b":
+            return (new Problem2B(input)).solve();
         default:
             return 0;
         }
