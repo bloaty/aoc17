@@ -34,7 +34,27 @@ public class Problem2B extends Problem2 {
                     .get();
     }
     
-    private static int findRatioOfTwoNumbersThatDivideEvenly(List<Integer> list) {
+    private int bruteForceSolution(List<Integer> list) {
+        int ratio = 0;
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                int ii = list.get(i);
+                int jj = list.get(j);
+                if (ii % jj == 0) {
+                    ratio = ii / jj;
+                }
+                if (jj % ii == 0) {
+                    ratio = jj / ii;
+                }
+            }
+        }
+        if (ratio == 0) {
+            throw new RuntimeException("Did not find two numbers that divide each other evenly in: " + list.toString());
+        }
+        return ratio;
+    }
+    
+    private int findRatioOfTwoNumbersThatDivideEvenly(List<Integer> list) {
         if (list.isEmpty()) {
             throw new RuntimeException("Tried to operate on empty row!");
         }
@@ -43,8 +63,8 @@ public class Problem2B extends Problem2 {
         
         // Short-circuit: every number is multiple of 1, so if 1 is on the list,
         // just return the next smallest number.
-        if (list.get(0).intValue() == 1) {
-            return list.get(1).intValue();
+        if (list.get(0) == 1) {
+            return list.get(1);
         }
         
         ReallyBadIntegerListTrie trie = new ReallyBadIntegerListTrie();
@@ -53,7 +73,7 @@ public class Problem2B extends Problem2 {
             List<Integer> primeFactors = IntegerUtils.primeFactors(i);
             int divisor = trie.previouslyInsertedDivisorOf(primeFactors);
             if (divisor > 1) {
-                ratio = i.intValue() / divisor;
+                ratio = i / divisor;
                 break;
             }
             trie.insert(primeFactors);
@@ -115,7 +135,7 @@ public class Problem2B extends Problem2 {
             // an existing value, go one level deeper.
             Integer head = list.remove(0);
             if (trie.containsKey(head)) {
-                return trie.get(head).doPreviouslyInsertedDivisorOf(list, head.intValue() * acc);
+                return trie.get(head).doPreviouslyInsertedDivisorOf(list, head * acc);
             }
             
             return doPreviouslyInsertedDivisorOf(list, acc);
