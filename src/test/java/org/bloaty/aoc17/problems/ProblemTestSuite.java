@@ -8,7 +8,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
     Problem1ATests.class,
     Problem1BTests.class,
-    Problem2ATests.class
+    Problem2ATests.class,
+    Problem3ATests.class
 })
 public class ProblemTestSuite {
     /* intentionally blank */

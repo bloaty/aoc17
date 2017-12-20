@@ -74,25 +74,18 @@ public class Problem3A extends Problem3 {
         int L = R > 0 ? (2 * R + 1) : (2 - 2 * R);
 
         int rowOfN;
+        int colOfN;
+        
         if (N - I < L) {
             rowOfN = R;
+            colOfN = R <= 0 ? (R + N - I) : (R - (N - I));
         } else {
             rowOfN = R < 0 ? (R + N - I - L + 1) : (R - (N - I - L + 1));
-        }
-        
-        int colOfN;
-        if (N - I >= L) {
             colOfN = R <= 0 ? (R + L - 1) : (R - L + 1);
-        } else {
-            colOfN = R <= 0 ? (R + N - I) : (R - (N - I));
         }
         
         return new Point2D(rowOfN, colOfN);
     }
-    
-//    public static void main(String[] args) {
-//        Stream.of(67).map(n -> spiralToXY(n)).forEach(x -> System.out.println(x));
-//    }
     
     private static class Point2D {
         private final int x;
