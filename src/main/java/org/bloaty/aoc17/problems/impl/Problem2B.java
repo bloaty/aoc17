@@ -1,7 +1,7 @@
 package org.bloaty.aoc17.problems.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,6 @@ import org.bloaty.aoc17.utils.IntegerUtils;
  * - We can now probe the trie with the prime factors of b.
  * - If we insert factors in descending order and also probe in descending order, the
  *   branch to probe is uniquely determined.
- * - If we insert and probe in ascending order, we would need to check multiple branches.
  */
 public class Problem2B extends Problem2 {
 
@@ -29,11 +28,12 @@ public class Problem2B extends Problem2 {
     @Override
     public int solve() {
         return input.stream()
-                    .map(list -> findRatioOfTwoNumbersThatDivideEvenly(list))
+                    .map(list -> overEngineeredSolution(list))
                     .reduce((i, j) -> i + j)
                     .get();
     }
     
+    @SuppressWarnings("unused")
     private int bruteForceSolution(List<Integer> list) {
         int ratio = 0;
         for (int i = 0; i < list.size(); i++) {
@@ -54,7 +54,7 @@ public class Problem2B extends Problem2 {
         return ratio;
     }
     
-    private int findRatioOfTwoNumbersThatDivideEvenly(List<Integer> list) {
+    private int overEngineeredSolution(List<Integer> list) {
         if (list.isEmpty()) {
             throw new RuntimeException("Tried to operate on empty row!");
         }
@@ -110,7 +110,7 @@ public class Problem2B extends Problem2 {
         }
         
         public int previouslyInsertedDivisorOf(List<Integer> list) {
-            List<Integer> listCopy = new ArrayList<>();
+            List<Integer> listCopy = new LinkedList<>();
             listCopy.addAll(list);
             // sorted in descending order
             listCopy.sort((a, b) -> b.compareTo(a));

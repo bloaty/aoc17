@@ -6,6 +6,7 @@ import org.bloaty.aoc17.problems.impl.Problem1A;
 import org.bloaty.aoc17.problems.impl.Problem1B;
 import org.bloaty.aoc17.problems.impl.Problem2A;
 import org.bloaty.aoc17.problems.impl.Problem2B;
+import org.bloaty.aoc17.problems.impl.Problem3A;
 
 public class Main {
     
@@ -26,7 +27,7 @@ public class Main {
     }
     
     private static final int doProblem(final String problem, final String input) {
-        switch (problem) {
+        switch (problem.toLowerCase()) {
         case "1a":
             return (new Problem1A(input)).solve();
         case "1b":
@@ -35,6 +36,8 @@ public class Main {
             return (new Problem2A(input)).solve();
         case "2b":
             return (new Problem2B(input)).solve();
+        case "3a":
+            return (new Problem3A(input)).solve();
         default:
             return 0;
         }
