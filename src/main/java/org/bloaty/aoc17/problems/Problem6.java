@@ -5,15 +5,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class Problem5 extends Problem<Integer> {
+public abstract class Problem6 extends Problem<Integer> {
 
-    public Problem5(String input) {
+    public Problem6(String input) {
         super(input);
     }
 
     @Override
     List<Integer> processInput(String input) {
-        String[] lines = input.split("\\n");
+        String[] lines = input.split("\\s+");
         List<Integer> instructionList =
                 Arrays.stream(lines)
                       .map(s -> Integer.parseInt(s))

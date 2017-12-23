@@ -12,6 +12,7 @@ import org.bloaty.aoc17.problems.impl.Problem4A;
 import org.bloaty.aoc17.problems.impl.Problem4B;
 import org.bloaty.aoc17.problems.impl.Problem5A;
 import org.bloaty.aoc17.problems.impl.Problem5B;
+import org.bloaty.aoc17.problems.impl.Problem6A;
 
 public class Main {
     
@@ -53,6 +54,8 @@ public class Main {
             return (new Problem5A(input)).solve();
         case "5b":
             return (new Problem5B(input)).solve();
+        case "6a":
+            return (new Problem6A(input)).solve();
         default:
             return 0;
         }
