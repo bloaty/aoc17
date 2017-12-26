@@ -2,7 +2,10 @@ package org.bloaty.aoc17.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class IntegerUtils {
     
@@ -171,11 +174,38 @@ public class IntegerUtils {
         return list;
     }
     
+    public static final List<Integer> divisorsOf(int n) {
+        List<Integer> primeFactors = primeFactors(n);
+        Set<Integer> uniqueFactors =
+                privateDivisorsOf(primeFactors).stream()
+                                               .filter(i -> n % i == 0)
+                                               .collect(Collectors.toCollection(HashSet::new));
+        uniqueFactors.add(1);
+        List<Integer> factors = new ArrayList<>();
+        factors.addAll(uniqueFactors);
+        factors.sort(null);
+        return factors;
+    }
+    
+    private static final List<Integer> privateDivisorsOf(List<Integer> factors) {
+        if (factors.size() == 1) {
+            return factors;
+        } else {
+            Integer first = factors.remove(0);
+            List<Integer> otherDivisors = privateDivisorsOf(factors);
+            otherDivisors.addAll(otherDivisors.stream()
+                         .map(i -> i * first)
+                         .collect(Collectors.toCollection(ArrayList::new)));
+            otherDivisors.add(first);
+            return otherDivisors;
+        }
+    }
+    
     public static final int binaryGcd(int a, int b) {
         if (a == 0) return a;
         if (b == 0) return b;
         
-        // remove all common factors of 2 and retore them at the end
+        // remove all common factors of 2 and restore them at the end
         int shift = 0;
         while (((a | b) & 1) == 0) {
             a = a >> 1;
@@ -199,11 +229,6 @@ public class IntegerUtils {
         
         // restore common factors of 2
         return a << shift;
-    }
-    
-    // for sanity testing purposes
-    public static void main(String[] args) {
-        System.out.println(Math.sqrt(256981));
     }
 
 }

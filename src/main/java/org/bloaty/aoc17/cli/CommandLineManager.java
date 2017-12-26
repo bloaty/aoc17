@@ -122,6 +122,10 @@ public final class CommandLineManager {
 
     private String getInputFromConsole() {
         Console console = System.console();
+        if (console == null) {
+            printHelp();
+            System.exit(0);
+        }
         return console.readLine("%s", "Input: ");
     }
 
